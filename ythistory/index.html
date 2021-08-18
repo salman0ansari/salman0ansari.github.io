@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="./index.css" rel="stylesheet">
+	<!-- <link href="./index.css" rel="stylesheet"> -->
+	<style>
+	th {
+		cursor: pointer;
+	}
+	</style>
+	<title>Youtube Subscription History</title>
+</head>
+
+<body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<div class="container mx-auto navbar shadow-lg bg-red-800 text-neutral-content">
+		<div class="flex-none px-2 mx-2"> <span class="text-lg font-bold">
+        Youtube Subscription History
+      </span> </div>
+	</div>
+	<div class="container mx-auto">
+		<h1 class="m-5">find out when you subscribed to a YouTube channel.</h1>
+		<div class="navbar mt-5 shadow-lg bg-red-800 text-neutral-content">
+			<div class="flex-none px-2 mx-2"> <span class="text-lg font-bold">
+          Your channel
+        </span> </div>
+		</div>
+		<!-- search bar -->
+		<form action="">
+			<div class="form-control mt-5">
+				<div class="relative">
+					<input type="text" id="input" placeholder="Enter the URL of Youtube Channel" class="w-full pr-44  input input-bordered">
+					<div id="error"> </div>
+				</div>
+			</div>
+		</form>
+		<!-- help -->
+		<div tabindex="0" class="collapse w-96">
+			<div class="collapse-title text-xl font-medium"> <a class="link link-primary"> Where do I find Channel URL?</a> </div>
+			<div class="collapse-content">
+				<p> <span class="badge badge-outline">YouTube Mobile App</span>
+					<br> Go to your channel by pressing profile picture and select "My Channel". Then find the "Share" option in the menu and choose "Copy link".
+					<br> </p>
+			</div>
+		</div>
+		<!-- button -->
+		<button id="button" class="btn btn-success m-5">GO</button>
+		<!-- Table of content  -->
+		<div class="overflow-x-auto" id="wholeTable" style="display:none">
+			<table class="table w-full table-compact ">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Channel Name </th>
+						<th>Subscribed On</th>
+						<th>Total Videoes</th>
+						<!-- <th>channel url</th>  -->
+					</tr>
+				</thead>
+				<tbody id="tableBody">
+					<!-- data here -->
+				</tbody>
+				<tfoot>
+					<tr>
+						<th></th>
+						<th>Channel name</th>
+						<th>Subscribed on</th>
+						<th>total videos</th>
+						<!-- <th>channel url</th>  -->
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<script src="./script.js"></script>
+</body>
+
+</html>
