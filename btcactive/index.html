@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Active Address</title>
+</head>
+
+<body>
+    <div class="chart-container" style="position: relative; height:80vh; width:80vw">
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"
+        integrity="sha512-lTLt+W7MrmDfKam+r3D2LURu0F47a3QaW5nF0c6Hl0JDZ57ruei+ovbg7BrZ+0bjVJ5YgzsAWE+RreERbpPE1g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+        integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        async function fetchdata() {
+            const response = await axios("https://cors-anywhere.herokuapp.com/https://jsonkeeper.com/b/LDWX", {
+                mode: "no-cors"
+            });
+            const parsedJson = await response.data.btc;
+            data = []
+            months = []
+            years = []
+            address = parsedJson.slice(0).reverse().map((value, index, number) => {
+                data.push(value.activeAddress)
+                months.push(value.month.month)
+                years.push(value.month.year)
+            })
+
+            combined = []
+            for (var i = 0; i < parsedJson.length; i++) {
+                combined[i] = `${months[i]}/${years[i]}`
+            }
+
+            //     const months = Array.from({length: parsedJson.length}, (item, i) => {
+            // return new Date(0, i).toLocaleString('en-US', {month: 'long'})
+            // });
+
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: combined,
+                    datasets: [{
+                        label: 'Bitcoin Active Addresses',
+                        data: data,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: [
+                            '"#3e95cd"'
+                        ],
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            position: 'bottom',
+                            time: {
+                                displayFormats: { 'day': 'MM/YY' },
+                                tooltipFormat: 'DD/MM/YY',
+                                unit: 'month',
+                            }
+                        }]
+
+                    }
+                }
+            });
+        }
+
+        fetchdata().then(r => console.log('done'))
+
+    </script>
+</body>
+
+</html>
+
+
+<!-- 8026c526-3bee-47c3-8941-b85013d9f489 -->
