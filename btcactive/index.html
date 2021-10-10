@@ -23,6 +23,9 @@
         async function fetchdata() {
             const response = await axios("https://cors-anywhere.herokuapp.com/https://jsonkeeper.com/b/LDWX", {
                 mode: "no-cors"
+                headers: {
+                      "X-Requested-With": "XMLHttpRequest"
+                    }
             });
             const parsedJson = await response.data.btc;
             data = []
